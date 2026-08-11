@@ -17,14 +17,13 @@ class CorrelationIdMiddleware(BaseHTTPMiddleware):
             correlation_id = f"req-{uuid.uuid4().hex[:8]}"
 
         bind_contextvars(correlation_id=correlation_id)
-
         request.state.correlation_id = correlation_id
 
         start = time.perf_counter()
         response = await call_next(request)
 
-        duration_ms = round((time.perf_counter() - start) * 1000, 2)
+        elapsed_ms = (time.perf_counter() - start) * 1000
         response.headers["x-request-id"] = correlation_id
-        response.headers["x-response-time-ms"] = str(duration_ms)
+        response.headers["x-response-time-ms"] = f"{elapsed_ms:.2f}"
 
         return response

@@ -1,0 +1,38 @@
+================================================================================
+EVIDENCE: Correlation ID - Day 13 Observability Lab
+User: Trương Minh Hoàng (Roll 1 - Logging & PII)
+================================================================================
+
+ACTUAL LOG ENTRIES FROM data/logs.jsonl:
+--------------------------------------------------------------------------------
+
+Log Entry 1 - request_received:
+{"service":"api","payload":{"message_preview":"Contact me at [REDACTED_EMAIL] or call [REDACTED_PHONE_VN]"},"event":"request_received","user_id_hash":"d51968617d09","session_id":"session-pii-test","feature":"qa","model":"gpt-4o-mini","env":"dev","correlation_id":"req-2005f7cc","level":"info","ts":"2026-08-11T04:21:00.448Z"}
+
+Log Entry 2 - response_sent:
+{"service":"api","latency_ms":1068,"tokens_in":33,"tokens_out":155,"cost_usd":0.002424,"quality_score":0.8,"payload":{"answer_preview":"Starter answer. Teams should improve this output logic and add better quality ch..."},"event":"response_sent","user_id_hash":"d51968617d09","session_id":"session-pii-test","feature":"qa","model":"gpt-4o-mini","env":"dev","correlation_id":"req-2005f7cc","level":"info","ts":"2026-08-11T04:21:01.516Z"}
+
+Log Entry 3 - request_received:
+{"service":"api","payload":{"message_preview":"What is your refund policy?"},"event":"request_received","user_id_hash":"2055254ee30a","session_id":"s01","feature":"qa","model":"gpt-4o-mini","env":"dev","correlation_id":"req-0c5ca1ed","level":"info","ts":"2026-08-11T03:35:14.351Z"}
+
+Log Entry 4 - response_sent:
+{"service":"api","latency_ms":1053,"tokens_in":36,"tokens_out":149,"cost_usd":0.002343,"quality_score":0.9,"payload":{"answer_preview":"Starter answer. Teams should improve this output logic and add better quality ch..."},"event":"response_sent","user_id_hash":"2055254ee30a","session_id":"s01","feature":"qa","model":"gpt-4o-mini","env":"dev","correlation_id":"req-0c5ca1ed","level":"info","ts":"2026-08-11T03:35:15.716Z"}
+
+
+VERIFICATION:
+--------------------------------------------------------------------------------
+[PASSED] Correlation ID format: req-<8-char-hex>         (e.g., req-2005f7cc)
+[PASSED] Correlation ID matches in request/response pair (e.g., req-2005f7cc)
+[PASSED] Correlation ID in response header: X-Request-Id
+[PASSED] All metadata present: user_id_hash, session_id, feature, model, env
+
+
+METADATA VERIFICATION:
+--------------------------------------------------------------------------------
+user_id_hash : d51968617d09  (SHA256 hash, 12 chars)
+session_id   : session-pii-test
+feature      : qa
+model        : gpt-4o-mini
+env          : dev
+correlation_id: req-2005f7cc
+================================================================================
