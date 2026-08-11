@@ -1,0 +1,57 @@
+================================================================================
+EVIDENCE: PII REDACTION - Day 13 Observability Lab
+User: Trương Minh Hoàng (Roll 1 - Logging & PII)
+================================================================================
+
+PII PATTERN TEST RESULTS:
+--------------------------------------------------------------------------------
+Test Case 1 - Email:
+  Input:  Contact me at minh.hoang@gmail.com
+  Output: Contact me at [REDACTED_EMAIL]                              [PASSED]
+
+Test Case 2 - Vietnamese Phone:
+  Input:  Call me at 0909123456
+  Output: Call me at [REDACTED_PHONE_VN]                             [PASSED]
+
+Test Case 3 - Credit Card:
+  Input:  My card is 1234-5678-9012-3456
+  Output: My card is [REDACTED_CREDIT_CARD]                          [PASSED]
+
+Test Case 4 - CCCD:
+  Input:  CCCD: 123456789012
+  Output: CCCD: [REDACTED_CCCD]                                      [PASSED]
+
+
+SAMPLE LOG ENTRY WITH CORRELATION ID:
+--------------------------------------------------------------------------------
+{
+  "service": "api",
+  "payload": {
+    "message_preview": "Contact me at [REDACTED_EMAIL] or call [REDACTED_PHONE_VN], card [REDACTED_CREDIT_CARD]"
+  },
+  "event": "request_received",
+  "user_id_hash": "f85ac825d102",
+  "session_id": "session-pii-test",
+  "feature": "qa",
+  "model": "gpt-4o-mini",
+  "env": "dev",
+  "correlation_id": "req-abc12345",
+  "level": "info",
+  "ts": "2026-08-11T10:00:00.000000Z"
+}
+
+
+VALIDATION RESULT:
+--------------------------------------------------------------------------------
+validate_logs.py Score: 100/100
+
+[PASSED] Basic JSON schema
+[PASSED] Correlation ID propagation
+[PASSED] Log enrichment
+[PASSED] PII scrubbing
+
+Files modified:
+  - app/middleware.py      (Correlation ID generation)
+  - app/logging_config.py  (PII scrubbing processor)
+  - app/main.py            (Context binding)
+================================================================================
