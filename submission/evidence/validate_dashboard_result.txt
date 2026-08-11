@@ -1,0 +1,7 @@
+HỢP LỆ: 6/6 panel có trong dashboard contract.
+- Panel 1: latency (aggregations: p50, p95, p99 | unit: ms | threshold: 3000ms)
+- Panel 2: traffic (aggregations: count, rate_per_minute | unit: requests_per_minute | threshold: 1)
+- Panel 3: errors (aggregations: error_rate_pct, count_by_value | unit: percent | threshold: 2%)
+- Panel 4: cost (aggregations: sum_by_minute, total | unit: usd | threshold: 2.5)
+- Panel 5: tokens (aggregations: sum_by_field | unit: tokens | threshold: 50000)
+- Panel 6: quality (aggregations: mean | unit: score_0_to_1 | threshold: 0.75)
